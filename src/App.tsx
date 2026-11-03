@@ -4,6 +4,7 @@ import { BookingProvider, useBooking, type OverlayView } from './booking'
 import { Chooser } from './components/Chooser'
 import { Header } from './components/Header'
 import { Home } from './components/Home'
+import { InstallPrompt } from './components/InstallPrompt'
 import type { FlowId } from './data'
 import { useLockBody } from './hooks'
 import { AtelierCalendar } from './flows/AtelierCalendar'
@@ -43,6 +44,7 @@ function ClinicApp() {
     <div className="min-h-svh bg-ivory">
       <Header onBook={openChooser} />
       <Home onBook={openChooser} onSelectFlow={openFlow} />
+      <InstallPrompt hidden={view !== null} />
       <AnimatePresence>
         {view === 'chooser' ? (
           <Chooser key="chooser" onClose={close} onSelect={openFlow} />
