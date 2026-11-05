@@ -278,13 +278,6 @@ export function FlowChrome({
       <div className="flex items-center gap-2">
         <button
           type="button"
-          onClick={onSwitch}
-          className={`text-[0.65rem] tracking-[0.16em] uppercase ${mute}`}
-        >
-          Other ideas
-        </button>
-        <button
-          type="button"
           onClick={onClose}
           aria-label="Close"
           className={`flex h-9 w-9 items-center justify-center rounded-full border ${

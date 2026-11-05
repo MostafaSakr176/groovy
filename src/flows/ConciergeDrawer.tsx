@@ -50,13 +50,6 @@ export function ConciergeDrawer({
           <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={onSwitch}
-              className="text-[0.62rem] tracking-[0.14em] text-ink/45 uppercase"
-            >
-              Ideas
-            </button>
-            <button
-              type="button"
               onClick={onClose}
               className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/25"
               aria-label="Close"

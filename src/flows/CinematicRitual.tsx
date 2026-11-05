@@ -39,13 +39,6 @@ export function CinematicRitual({
         <div className="flex items-center gap-4">
           <button
             type="button"
-            onClick={onSwitch}
-            className="text-[0.65rem] tracking-[0.16em] text-ivory/50 uppercase"
-          >
-            Other ideas
-          </button>
-          <button
-            type="button"
             onClick={onClose}
             className="text-[0.65rem] tracking-[0.16em] text-ivory/70 uppercase"
           >
