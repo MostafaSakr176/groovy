@@ -9,6 +9,8 @@ type BeforeInstallPromptEvent = Event & {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
 }
 
+type Help = 'ios' | 'android' | 'desktop'
+
 function isStandalone() {
   return (
     window.matchMedia('(display-mode: standalone)').matches ||
@@ -21,10 +23,14 @@ function isIos() {
   return /iphone|ipad|ipod/i.test(navigator.userAgent)
 }
 
+function isAndroid() {
+  return /android/i.test(navigator.userAgent)
+}
+
 function isMobile() {
   return (
     isIos() ||
-    /android/i.test(navigator.userAgent) ||
+    isAndroid() ||
     window.matchMedia('(max-width: 768px)').matches
   )
 }
@@ -32,10 +38,11 @@ function isMobile() {
 export function InstallPrompt({ hidden = false }: { hidden?: boolean }) {
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null)
   const [open, setOpen] = useState(false)
-  const [help, setHelp] = useState<'ios' | 'android' | null>(null)
+  const [help, setHelp] = useState<Help | null>(null)
+  const mobile = isMobile()
 
   useEffect(() => {
-    if (isStandalone() || localStorage.getItem(STORAGE_KEY) === '1' || !isMobile()) {
+    if (isStandalone() || localStorage.getItem(STORAGE_KEY) === '1') {
       return
     }
 
@@ -78,7 +85,7 @@ export function InstallPrompt({ hidden = false }: { hidden?: boolean }) {
       setDeferred(null)
       return
     }
-    setHelp(isIos() ? 'ios' : 'android')
+    setHelp(isIos() ? 'ios' : isAndroid() || mobile ? 'android' : 'desktop')
   }
 
   const visible = open && !hidden && !isStandalone()
@@ -88,12 +95,12 @@ export function InstallPrompt({ hidden = false }: { hidden?: boolean }) {
       {visible ? (
         <motion.aside
           role="dialog"
-          aria-label="Install Maison Lumière"
+          aria-label="Install DERMA CLINICS"
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 160, damping: 20 }}
-          className="silk-panel fixed inset-x-3 bottom-3 z-30 overflow-hidden rounded-[1.4rem] border border-gold/25 p-4 shadow-[0_24px_50px_-24px_rgba(36,28,24,0.55)] sm:inset-x-auto sm:right-5 sm:bottom-5 sm:w-[360px]"
+          className="silk-panel fixed inset-x-3 bottom-3 z-30 overflow-hidden rounded-[1.4rem] border border-gold/25 p-4 shadow-[0_24px_50px_-24px_rgba(36,28,24,0.55)] sm:inset-x-auto sm:right-5 sm:bottom-5 sm:w-[380px]"
         >
           <div className="flex items-start gap-3">
             <img
@@ -102,11 +109,12 @@ export function InstallPrompt({ hidden = false }: { hidden?: boolean }) {
               className="h-12 w-12 shrink-0 rounded-2xl"
             />
             <div className="min-w-0 flex-1">
-              <p className="kicker">On your phone</p>
-              <p className="serif text-xl text-espresso">Keep the atelier in your apps.</p>
+              <p className="kicker">{mobile ? 'On your phone' : 'On your computer'}</p>
+              <p className="serif text-xl text-espresso">Keep DERMA in your apps.</p>
               <p className="mt-1 text-sm text-ink/70">
-                Install Maison Lumière to open it from your home screen, like a
-                native app.
+                {mobile
+                  ? 'Install DERMA CLINICS to open it from your home screen, like a native app.'
+                  : 'Install DERMA CLINICS on this computer and open it from your desktop or dock, like a native app.'}
               </p>
             </div>
             <button
@@ -122,7 +130,7 @@ export function InstallPrompt({ hidden = false }: { hidden?: boolean }) {
             <ol className="mt-4 space-y-2 text-sm text-ink/80">
               <li>1. Tap the Share button in Safari.</li>
               <li>2. Choose Add to Home Screen.</li>
-              <li>3. Tap Add — Lumière appears with your other apps.</li>
+              <li>3. Tap Add — DERMA CLINICS appears with your other apps.</li>
             </ol>
           ) : null}
           {help === 'android' ? (
@@ -130,9 +138,15 @@ export function InstallPrompt({ hidden = false }: { hidden?: boolean }) {
               Open the browser menu and tap Install app or Add to Home screen.
             </p>
           ) : null}
+          {help === 'desktop' ? (
+            <ol className="mt-4 space-y-2 text-sm text-ink/80">
+              <li>1. Chrome or Edge: use the install icon in the address bar, or the browser menu, then Install app.</li>
+              <li>2. Safari: File → Add to Dock, or Share → Add to Dock.</li>
+            </ol>
+          ) : null}
           <div className="mt-4 flex gap-2">
             <GoldButton onClick={install} className="flex-1 rounded-full px-4 py-3 text-[0.68rem]">
-              {help ? 'How to install' : 'Add to Home Screen'}
+              {help ? 'How to install' : mobile && !deferred ? 'Add to Home Screen' : 'Install app'}
             </GoldButton>
             <button
               type="button"

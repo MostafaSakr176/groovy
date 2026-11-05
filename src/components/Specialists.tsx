@@ -59,7 +59,7 @@ export function Specialists() {
         onBlur={() => setPaused(false)}
       >
         <motion.div
-          className="relative h-[400px] cursor-grab touch-pan-y active:cursor-grabbing sm:h-[450px]"
+          className="relative h-[400px] cursor-grab touch-pan-y active:cursor-grabbing sm:h-[470px]"
           style={{ perspective: 1400 }}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}

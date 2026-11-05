@@ -47,7 +47,7 @@ export function Hero({ onBook }: { onBook: () => void }) {
         </motion.div>
       </AnimatePresence>
 
-      <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-5 pb-16 pt-28 lg:justify-center lg:px-8 lg:pb-24">
+      <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-5 pb-16 pt-[calc(7rem+var(--announce-h,0px))] lg:justify-center lg:px-8 lg:pb-24">
         <AnimatePresence mode="wait">
           <motion.div
             key={offer.id}

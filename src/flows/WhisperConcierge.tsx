@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useBooking } from '../booking'
 import { HeldCard } from '../components/pickers'
 import {
+  CLINIC,
   SPECIALISTS,
   TIMES,
   TREATMENTS,
@@ -41,7 +42,7 @@ export function WhisperConcierge({
   useEffect(() => {
     const t = window.setTimeout(() => {
       setTyping(false)
-      push('her', 'Welcome to Maison Lumière. What would you like to sit for?')
+      push('her', `Welcome to ${CLINIC.name}. What would you like to sit for?`)
     }, 650)
     return () => window.clearTimeout(t)
   }, [])

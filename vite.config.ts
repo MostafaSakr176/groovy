@@ -17,10 +17,10 @@ export default defineConfig({
         'pwa-maskable-512x512.png',
       ],
       manifest: {
-        name: 'Maison Lumière',
-        short_name: 'Lumière',
+        name: 'DERMA CLINICS',
+        short_name: 'DERMA CLINICS',
         description:
-          'Private consultations for skin, contour, and glow. Book a consultant at Maison Lumière.',
+          'Private consultations for skin, contour, and glow. Book a consultant at DERMA CLINICS.',
         theme_color: '#241C18',
         background_color: '#F7F1EA',
         display: 'standalone',

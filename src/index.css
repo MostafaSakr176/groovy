@@ -23,6 +23,7 @@
 
 html {
   scroll-behavior: smooth;
+  --announce-h: 0px;
 }
 
 html,
@@ -247,6 +248,20 @@ body {
   border-radius: 99px;
 }
 
+@keyframes announce-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.announce-marquee {
+  animation: announce-marquee 90s linear infinite;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -254,5 +269,9 @@ body {
 
   .gold-cta::after {
     display: none;
+  }
+
+  .announce-marquee {
+    animation: none;
   }
 }

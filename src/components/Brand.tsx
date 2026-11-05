@@ -14,19 +14,19 @@ export function BrandMark({
 
   return (
     <a href="#top" className={`flex items-center gap-3 no-underline ${ink}`}>
-      <svg viewBox="0 0 48 48" className={box} aria-hidden="true">
+      <svg viewBox="0 0 48 48" className={`${box} block shrink-0`} aria-hidden="true">
         <circle cx="24" cy="24" r="18" fill="none" stroke={stroke} strokeWidth="1.2" />
         <path
-          d="M24 12c2.2 5 7 8 11.2 8.8C31 21.8 26.2 24.8 24 30c-2.2-5.2-7-8.2-11.2-9.2C17 20 21.8 17 24 12Z"
+          d="M24 13.5C26.4 18.5 31.2 21.6 36 24C31.2 26.4 26.4 29.5 24 34.5C21.6 29.5 16.8 26.4 12 24C16.8 21.6 21.6 18.5 24 13.5Z"
           fill={stroke}
         />
       </svg>
       <span className="leading-none">
         <span className={`serif block ${type} tracking-[0.18em] uppercase`}>
-          Maison Lumière
+          DERMA CLINICS
         </span>
         <span className="mt-1 block text-[0.62rem] tracking-[0.32em] uppercase text-gold">
-          Aesthetic atelier
+          Aesthetic Clinic
         </span>
       </span>
     </a>

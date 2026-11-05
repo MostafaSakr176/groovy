@@ -29,12 +29,12 @@ export type Specialist = {
 export type FlowId = 'velvet' | 'ritual' | 'concierge' | 'atelier' | 'whisper'
 
 export const CLINIC = {
-  name: 'Maison Lumière',
-  whisper: 'Aesthetic atelier',
+  name: 'DERMA CLINICS',
+  whisper: 'Aesthetic Clinic',
   city: 'Zamalek, Cairo',
   address: '14 Nile Garden, Zamalek',
   phone: '+20 100 440 2210',
-  email: 'concierge@maisonlumiere.clinic',
+  email: 'concierge@dermaclinics.clinic',
   hours: 'Sun–Thu, 10:00–19:00',
 }
 
@@ -108,6 +108,7 @@ export type Offer = {
   line: string
   save: string
   image: string
+  featured?: boolean
 }
 
 export const OFFERS: Offer[] = [
@@ -118,6 +119,7 @@ export const OFFERS: Offer[] = [
     line: 'A glass-skin hour with a complimentary reading of the barrier.',
     save: 'Save 20%',
     image: hydraImg,
+    featured: true,
   },
   {
     id: 'lift',
@@ -144,6 +146,10 @@ export const OFFERS: Offer[] = [
     image: bridalImg,
   },
 ]
+
+export function currentOffer() {
+  return OFFERS.find((offer) => offer.featured) ?? OFFERS[0] ?? null
+}
 
 export const SPECIALISTS: Specialist[] = [
   {
@@ -235,6 +241,43 @@ export const FLOWS: {
     kicker: 'Conversation',
     line: 'No forms. A whispered exchange with the clinic concierge — answer in soft chips.',
     mood: 'Chat · chips · handwritten calm',
+  },
+]
+
+export type AnnouncementKind = 'offer' | 'notice' | 'alert'
+
+export type Announcement = {
+  id: string
+  kind: AnnouncementKind
+  text: string
+  href?: string
+  action?: 'book'
+}
+
+export const ANNOUNCEMENTS: Announcement[] = [
+  {
+    id: 'hydra-save',
+    kind: 'offer',
+    text: 'HydraGlow first visit — save 20% on your glass-skin hour.',
+    action: 'book',
+  },
+  {
+    id: 'softlift',
+    kind: 'offer',
+    text: 'SoftLift mapping is complimentary this season.',
+    action: 'book',
+  },
+  {
+    id: 'hours',
+    kind: 'notice',
+    text: 'The atelier is open Sun–Thu, 10:00–19:00 in Zamalek.',
+    href: '#visit',
+  },
+  {
+    id: 'bridal-dates',
+    kind: 'alert',
+    text: 'December bridal dates are nearly full — reserve your countdown soon.',
+    action: 'book',
   },
 ]
 

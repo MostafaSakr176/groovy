@@ -1,10 +1,12 @@
 import { AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { BookingProvider, useBooking, type OverlayView } from './booking'
+import { AnnouncementBar } from './components/AnnouncementBar'
 import { Chooser } from './components/Chooser'
 import { Header } from './components/Header'
 import { Home } from './components/Home'
 import { InstallPrompt } from './components/InstallPrompt'
+import { OfferPopup } from './components/OfferPopup'
 import type { FlowId } from './data'
 import { useLockBody } from './hooks'
 import { AtelierCalendar } from './flows/AtelierCalendar'
@@ -24,6 +26,7 @@ export default function App() {
 function ClinicApp() {
   const { reset } = useBooking()
   const [view, setView] = useState<OverlayView>(null)
+  const [offerOpen, setOfferOpen] = useState(false)
   useLockBody(view !== null)
 
   function openChooser() {
@@ -42,9 +45,15 @@ function ClinicApp() {
 
   return (
     <div className="min-h-svh bg-ivory">
+      <AnnouncementBar onBook={openChooser} />
       <Header onBook={openChooser} />
       <Home onBook={openChooser} onSelectFlow={openFlow} />
-      <InstallPrompt hidden={view !== null} />
+      <OfferPopup
+        hidden={view !== null}
+        onBook={openChooser}
+        onOpenChange={setOfferOpen}
+      />
+      <InstallPrompt hidden={view !== null || offerOpen} />
       <AnimatePresence>
         {view === 'chooser' ? (
           <Chooser key="chooser" onClose={close} onSelect={openFlow} />

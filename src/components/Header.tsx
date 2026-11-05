@@ -119,7 +119,7 @@ export function Header({ onBook }: { onBook: () => void }) {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
+        className={`fixed inset-x-0 top-[var(--announce-h,0px)] z-40 transition-all duration-500 ${
           solid
             ? 'bg-ivory/90 shadow-[0_10px_40px_-24px_rgba(36,28,24,0.45)] backdrop-blur-md'
             : 'bg-transparent'
